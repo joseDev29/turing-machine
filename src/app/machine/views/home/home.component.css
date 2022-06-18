@@ -1,0 +1,56 @@
+.machine-tape {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px;
+  margin-top: 24px;
+}
+
+.machine-cell {
+  width: 32px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.machine-cell i {
+  font-size: 20px;
+}
+
+.machine-cell div {
+  width: 100%;
+  aspect-ratio: 1/1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.machine-cell--bordered div {
+  border: 1px solid #000;
+  border-radius: 4px;
+}
+
+.var-a-cell div {
+  border: 1px solid var(--cyan-500);
+  color: var(--cyan-500);
+}
+
+.var-b-cell div {
+  border: 1px solid var(--purple-500);
+  color: var(--purple-500);
+}
+
+.var-c-cell div {
+  border: 1px solid var(--orange-500);
+  color: var(--orange-500);
+}
+
+.var-t-cell div {
+  border: 1px solid var(--pink-500);
+  color: var(--pink-500);
+}
+
+.init-s-cell div {
+  border: 1px solid var(--blue-500);
+  color: var(--blue-500);
+}

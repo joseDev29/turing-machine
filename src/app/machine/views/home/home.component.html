@@ -1,10 +1,15 @@
 <div style="padding: 32px">
-  <div style="display: flex; flex-direction: column; gap: 8px">
+  <h2>Turing machine</h2>
+
+  <div
+    style="display: flex; flex-direction: column; gap: 8px; margin-top: 24px"
+  >
     <textarea
       pInputTextarea
       style="width: 100%; max-width: 610px; font-size: 14px; height: 100px"
       [(ngModel)]="inputValue"
       [spellcheck]="false"
+      placeholder="Chain"
     ></textarea>
     <button
       pButton
@@ -37,94 +42,47 @@
     ></button>
   </div>
 
-  <div style="display: flex; flex-wrap: wrap; gap: 4px; margin-top: 24px">
-    <div
-      style="
-        width: 32px;
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        justify-content: center;
-      "
-    >
+  <div class="machine-tape">
+    <div class="machine-cell">
       <i
         class="pi pi-caret-down"
-        style="font-size: 20px"
         [ngStyle]="{
           visibility: machineState.head === 'lambdaL' ? 'visible' : 'hidden'
         }"
       ></i>
-      <div
-        style="
-          width: 100%;
-          aspect-ratio: 1/1;
-          display: flex;
-          justify-content: center;
-          align-items: center;
-        "
-      >
-        λ
-      </div>
+      <div>λ</div>
     </div>
 
     <div
+      class="machine-cell machine-cell--bordered"
+      [ngClass]="{
+        'var-a-cell': index <= 3,
+        'var-b-cell': index > 3 && index <= 7,
+        'var-c-cell': index > 7 && index <= 11,
+        'var-t-cell': index > 11 && index <= 15,
+        'init-s-cell': index === 16
+      }"
       *ngFor="let item of machineState.tape; index as index"
-      style="
-        width: 32px;
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        justify-content: center;
-      "
     >
       <i
         class="pi pi-caret-down"
-        style="font-size: 20px"
         [ngStyle]="{
           visibility: machineState.head === index ? 'visible' : 'hidden'
         }"
       ></i>
-      <div
-        style="
-          width: 100%;
-          aspect-ratio: 1/1;
-          display: flex;
-          justify-content: center;
-          align-items: center;
-          border: 1px solid #000;
-        "
-      >
+      <div>
         {{ item }}
       </div>
     </div>
 
-    <div
-      style="
-        width: 32px;
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        justify-content: center;
-      "
-    >
+    <div class="machine-cell">
       <i
         class="pi pi-caret-down"
-        style="font-size: 20px"
         [ngStyle]="{
           visibility: machineState.head === 'lambdaR' ? 'visible' : 'hidden'
         }"
       ></i>
-      <div
-        style="
-          width: 100%;
-          aspect-ratio: 1/1;
-          display: flex;
-          justify-content: center;
-          align-items: center;
-        "
-      >
-        λ
-      </div>
+      <div>λ</div>
     </div>
   </div>
 </div>
