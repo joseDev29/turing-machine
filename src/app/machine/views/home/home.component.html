@@ -1,0 +1,132 @@
+<div style="padding: 32px">
+  <div style="display: flex; flex-direction: column; gap: 8px">
+    <textarea
+      pInputTextarea
+      style="width: 100%; max-width: 610px; font-size: 14px; height: 100px"
+      [(ngModel)]="inputValue"
+      [spellcheck]="false"
+    ></textarea>
+    <button
+      pButton
+      class="p-button-help"
+      label="Load chain"
+      style="width: 100%; max-width: 610px"
+      (click)="onLoad()"
+      [disabled]="!inputValue.length"
+    ></button>
+  </div>
+
+  <div
+    style="margin-top: 24px; display: flex; flex-direction: column; gap: 8px"
+  >
+    <button
+      pButton
+      class="p-button-info"
+      label="Init"
+      style="width: 100%; max-width: 610px"
+      (click)="onInit()"
+      [disabled]="machineState.tape.length === 17"
+    ></button>
+    <button
+      pButton
+      class="p-button-danger"
+      label="Reset"
+      style="width: 100%; max-width: 610px"
+      (click)="onReset()"
+      [disabled]="machineState.tape.length === 17"
+    ></button>
+  </div>
+
+  <div style="display: flex; flex-wrap: wrap; gap: 4px; margin-top: 24px">
+    <div
+      style="
+        width: 32px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+      "
+    >
+      <i
+        class="pi pi-caret-down"
+        style="font-size: 20px"
+        [ngStyle]="{
+          visibility: machineState.head === 'lambdaL' ? 'visible' : 'hidden'
+        }"
+      ></i>
+      <div
+        style="
+          width: 100%;
+          aspect-ratio: 1/1;
+          display: flex;
+          justify-content: center;
+          align-items: center;
+        "
+      >
+        λ
+      </div>
+    </div>
+
+    <div
+      *ngFor="let item of machineState.tape; index as index"
+      style="
+        width: 32px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+      "
+    >
+      <i
+        class="pi pi-caret-down"
+        style="font-size: 20px"
+        [ngStyle]="{
+          visibility: machineState.head === index ? 'visible' : 'hidden'
+        }"
+      ></i>
+      <div
+        style="
+          width: 100%;
+          aspect-ratio: 1/1;
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          border: 1px solid #000;
+        "
+      >
+        {{ item }}
+      </div>
+    </div>
+
+    <div
+      style="
+        width: 32px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+      "
+    >
+      <i
+        class="pi pi-caret-down"
+        style="font-size: 20px"
+        [ngStyle]="{
+          visibility: machineState.head === 'lambdaR' ? 'visible' : 'hidden'
+        }"
+      ></i>
+      <div
+        style="
+          width: 100%;
+          aspect-ratio: 1/1;
+          display: flex;
+          justify-content: center;
+          align-items: center;
+        "
+      >
+        λ
+      </div>
+    </div>
+  </div>
+</div>
+
+<p-toast position="top-right"></p-toast>
