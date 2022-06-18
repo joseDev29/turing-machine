@@ -56,28 +56,20 @@ export class MachineStateService {
   };
 
   lambdaManagement = () => {
-    console.log('LAMDA HEAD: ', this.head);
-
     const state: State = this.automata[this.currentState] as State;
-    console.log(`LAMBDA STATE (${this.currentState}): `, state);
 
     const symbol = this.getCurrentSymbol();
-    console.log('LAMBDA SYMBOL: ', symbol);
 
     const transition = state[symbol];
-    console.log('LAMBDA TRANSITION: ', transition);
 
     const movement = transition[1] as MOVEMENT;
-    console.log('LAMBDA MOVEMENT: ', movement);
 
     const isMovementNeutral = movement === MOVEMENT.neutral;
 
     if (this.head === LAMBDA.right && !isMovementNeutral) {
       this.head = this.tape.length - 1;
-      console.log('LAMDA HEAD: ', this.head);
     } else if (this.head === LAMBDA.left && !isMovementNeutral) {
       this.head = 0;
-      console.log('LAMDA HEAD: ', this.head);
     }
 
     this.currentState = transition[2] as string;
@@ -85,7 +77,7 @@ export class MachineStateService {
     if (transition[3]) {
       return this.messageService.add({
         severity: 'success',
-        summary: 'Finalize',
+        summary: 'Process successfully completed',
       });
     }
 
@@ -93,25 +85,17 @@ export class MachineStateService {
   };
 
   runRound = (): any => {
-    console.log('RUN ROUND');
-    console.log('HEAD: ', this.head);
-
     if (this.head === LAMBDA.right || this.head === LAMBDA.left) {
-      console.log('---------------------------------------');
       return setTimeout(() => this.lambdaManagement(), this.timeStamp);
     }
 
     const state: State = this.automata[this.currentState] as State;
-    console.log(`STATE( ${this.currentState} ): `, state);
 
     const symbol = this.getCurrentSymbol();
-    console.log('SYMBOL: ', symbol);
 
     const transition = state[symbol];
-    console.log('TRANSITION: ', transition);
 
     const movement = transition[1] as MOVEMENT;
-    console.log('MOVEMENT: ', movement);
 
     this.tape[this.head] = transition[0] as string;
     this.currentState = transition[2] as string;
@@ -132,11 +116,10 @@ export class MachineStateService {
     if (transition[3]) {
       return this.messageService.add({
         severity: 'success',
-        summary: 'Finalize',
+        summary: 'Process successfully completed',
       });
     }
 
-    console.log('---------------------------------------');
     return setTimeout(() => this.runRound(), this.timeStamp);
   };
 }
